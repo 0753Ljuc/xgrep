@@ -1,0 +1,17 @@
+message B
+
+Macros
+migrate	Embeds migrations into the binary by expanding to a static instance of Migrator.
+querymacros	Statically checked SQL query with println!() style syntax.
+query_asmacros	A variant of query! which takes a path to an explicitly defined struct as the output type.
+query_as_uncheckedmacros	A variant of query_as! which does not check the input or output types. This still does parse the query to ensure it’s syntactically and semantically valid for the current database.
+query_filemacros	A variant of query! where the SQL query is stored in a separate file.
+query_file_asmacros	Combines the syntaxes of query_as! and query_file!.
+query_file_as_uncheckedmacros	A variant of query_file_as! which does not check the input or output types. This still does parse the query to ensure it’s syntactically and semantically valid for the current database.
+query_file_scalarmacros	A variant of query_scalar! which takes a file path like query_file!.
+query_file_scalar_uncheckedmacros	A variant of query_file_scalar! which does not typecheck bind parameters and leaves the output type to inference. The query itself is still checked that it is syntactically and semantically valid for the database, that it only produces one column and that the number of bind parameters is correct.
+query_file_uncheckedmacros	A variant of query_file! which does not check the input or output types. This still does parse the query to ensure it’s syntactically and semantically valid for the current database.
+query_scalarmacros	A variant of query! which expects a single column from the query and evaluates to an instance of QueryScalar.
+query_scalar_uncheckedmacros	A variant of query_scalar! which does not typecheck bind parameters and leaves the output type to inference. The query itself is still checked that it is syntactically and semantically valid for the database, that it only produces one column and that the number of bind parameters is correct.
+query_uncheckedmacros	A variant of query! which does not check the input or output types. This still does parse the query to ensure it’s syntactically and semantically valid for the current database.
+stub Pool

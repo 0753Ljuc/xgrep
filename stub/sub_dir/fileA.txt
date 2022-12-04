@@ -1,0 +1,14 @@
+Structs
+Any	Opaque database driver. Capable of being used in place of any SQLx database driver. The actual driver used will be selected at runtime, from the connection url.
+AnyConnection	A connection to any SQLx database.
+Mssqlmssql	MSSQL database driver.
+MssqlConnectionmssql
+MySqlmysql	MySQL database driver.
+MySqlConnectionmysql	A connection to a MySQL database.
+PgConnectionpostgres	A connection to a PostgreSQL database.
+Pool	An asynchronous pool of SQLx database connections [additional Pool here].
+Postgrespostgres	PostgreSQL database driver.
+QueryBuilder	A builder type for constructing queries at runtime.
+Sqlitesqlite	Sqlite database driver.
+SqliteConnectionsqlite	A connection to an open Sqlite database.
+Transaction	An in-progress database transaction or savepoint.
