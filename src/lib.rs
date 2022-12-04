@@ -4,16 +4,13 @@ use std::{fs::File, io::BufReader, path::PathBuf};
 pub mod command;
 pub mod error;
 use command::XgrepConfig;
-use error::XgrepError;
+pub use error::XgrepError;
 
 pub struct Xgrep {
     config: XgrepConfig,
     regex: Regex,
     files: Vec<PathBuf>,
 }
-
-pub type XgrepHandler<R = File> =
-    fn(path: &str, regex: &Regex, reader: BufReader<R>) -> Result<(), XgrepError>;
 
 impl Xgrep {
     #[allow(clippy::manual_filter_map)]
@@ -31,7 +28,10 @@ impl Xgrep {
         })
     }
 
-    fn run(&self, handler: XgrepHandler) -> Result<(), XgrepError> {
+    pub fn run<F>(&self, handler: &mut F) -> Result<(), XgrepError>
+    where
+        F: FnMut(&str, &Regex, BufReader<File>) -> Result<(), XgrepError>,
+    {
         for file in &self.files {
             let f = File::open(file)?;
             if let Some(filename) = file.to_str() {
