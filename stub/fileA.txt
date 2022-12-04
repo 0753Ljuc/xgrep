@@ -1,0 +1,18 @@
+Crate sqlxCopy item path
+source · [−]
+Modules
+any	Generic database driver with the specific driver selected at runtime.
+database	Traits to represent a database driver.
+decode	Provides Decode for decoding values from the database.
+encode	Provides Encode for encoding values for the database.
+error	Types for working with errors produced by SQLx.
+migrate
+mssqlmssql	Microsoft SQL (MSSQL) database driver.
+mysqlmysql	MySQL database driver.
+pool	Provides the connection pool for asynchronous SQLx connections.
+postgrespostgres	PostgreSQL database driver.
+prelude	Convenience re-export of common traits.
+query	Types and traits for the query family of functions and macros.
+query_builder	Runtime query-builder API.
+sqlitesqlite	SQLite database driver.
+types	Conversions between Rust and SQL types.
