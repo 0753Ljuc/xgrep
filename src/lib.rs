@@ -7,15 +7,19 @@ use command::XgrepConfig;
 pub use error::XgrepError;
 
 pub struct Xgrep {
-    config: XgrepConfig,
-    regex: Regex,
-    files: Vec<PathBuf>,
+    pub config: XgrepConfig,
+    pub regex: Regex,
+    pub files: Vec<PathBuf>,
 }
 
+#[allow(clippy::manual_filter_map)]
 impl Xgrep {
-    #[allow(clippy::manual_filter_map)]
     pub fn new() -> Result<Xgrep, XgrepError> {
         let config = XgrepConfig::parse();
+        Self::from(config)
+    }
+
+    pub fn from(config: XgrepConfig) -> Result<Xgrep, XgrepError> {
         let regex = Regex::new(&config.regex)?;
         let files = glob::glob(&config.glob)?
             .filter(|r| r.is_ok())

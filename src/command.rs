@@ -11,3 +11,17 @@ pub struct XgrepConfig {
     /// Glob of file names to search, e.g. /media/**/*.txt
     pub glob: String,
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::command::XgrepConfig;
+    use clap::Parser;
+
+    #[test]
+    fn it_work() {
+        let args = vec!["xgrep", "-r", "^Pool", "-g", "*.txt"];
+        let config = XgrepConfig::parse_from(&args);
+        assert_eq!(config.regex, "^Pool");
+        assert_eq!(config.glob, "*.txt");
+    }
+}
