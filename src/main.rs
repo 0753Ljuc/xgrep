@@ -81,7 +81,7 @@ mod tests {
         assert_eq!(
             format_line(8, 0, 5, "Hello I am a line"),
             format!(
-                "{:>5}{:>3}:{:3}|{}{}{}",
+                "{:>5}{:>3}:{:3}|{}{}{}\n",
                 8,
                 "0".cyan(),
                 "5".blue(),
