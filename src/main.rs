@@ -10,20 +10,18 @@ use xgrep::Xgrep;
 #[allow(clippy::manual_filter_map)]
 fn main() {
     let xgrep = Xgrep::new().unwrap();
-    let mut writer = std::io::stdout();
-    fn format_line(index: usize, start: usize, end: usize, line: &str) -> String {
-        format!(
-            "{:>5}{:>3}:{:3}|{}{}{}",
-            index,
-            start.to_string().cyan(),
-            end.to_string().blue(),
-            &line[..start],
-            &line[start..end].red(),
-            &line[end..],
-        )
+    let mut writer = Vec::new();
+    xgrep
+        .run(&mut |a, b, c| handler(a, b, c, &mut writer))
+        .unwrap();
     }
-    let mut handler =
-        |path: &str, regex: &Regex, reader: BufReader<File>| -> Result<(), xgrep::XgrepError> {
+
+fn handler(
+    path: &str,
+    regex: &Regex,
+    reader: BufReader<File>,
+    writer: &mut impl Write,
+) -> Result<(), xgrep::XgrepError> {
             let output_lines_vec = reader
                 .lines()
                 .filter(|l| l.is_ok())
@@ -44,11 +42,24 @@ fn main() {
                 .filter(|l| !l.is_empty())
                 .collect::<Vec<_>>();
             if !output_lines_vec.is_empty() {
-                let _i = writer.write(format!("{}:\n", path.yellow()).as_bytes())?;
-                let _i = writer.write(((output_lines_vec.concat() + "\n").as_str()).as_bytes())?;
+        let _i = writer
+            .write(format!("{}:\n{}", path.yellow(), output_lines_vec.concat()).as_bytes())?;
             }
 
             Ok(())
+}
+
+fn format_line(line_id: usize, start: usize, end: usize, line_message: &str) -> String {
+    format!(
+        "{:>5}{:>3}:{:3}|{}{}{}\n",
+        line_id,
+        start.to_string().cyan(),
+        end.to_string().blue(),
+        &line_message[..start],
+        &line_message[start..end].red(),
+        &line_message[end..],
+    )
+}
         };
 
     xgrep.run(&mut handler).unwrap();
